@@ -11,6 +11,8 @@ namespace MarcenariaMarcelus
         private string email;
         private string endereco;
 
+
+        ///////////////////////////////////////////////////////
         public void setNome(string nome)
         {
             this.nome = nome;
@@ -19,7 +21,7 @@ namespace MarcenariaMarcelus
         {
             return(nome);
         }
-        
+        ///////////////////////////////////////////////////////
         public void setCPF_CNPJ(string CPF_CNPJ)
         {
             this.CPF_CNPJ = CPF_CNPJ;
@@ -28,7 +30,7 @@ namespace MarcenariaMarcelus
         {
             return(CPF_CNPJ);
         }
-        
+        ///////////////////////////////////////////////////////
         public void setDataNascimento(DateTime data_nascimento)
         {
             this.data_nascimento = data_nascimento;
@@ -37,31 +39,29 @@ namespace MarcenariaMarcelus
         {
             return (data_nascimento);
         }
+        ///////////////////////////////////////////////////////
         public void setTelefone(string telefone)
         {
             this.telefone = telefone;
         }
-
         public string getTelefone()
         {
             return (telefone);
         }
-        
+        ///////////////////////////////////////////////////////
         public void setEmail(string email)
         {
             this.email = email;
         }
-
         public string getEmail()
         {
             return (email);
         }
-        
+        ///////////////////////////////////////////////////////
         public void setEndereco(string endereco)
         {
             this.endereco = endereco;
         }
-
         public string getEndereco()
         {
             return (endereco);
