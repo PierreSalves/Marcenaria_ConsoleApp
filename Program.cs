@@ -1,4 +1,5 @@
-﻿namespace MarcenariaMarcelus
+﻿using System;
+namespace MarcenariaMarcelus
 {
     internal class Program
     {
