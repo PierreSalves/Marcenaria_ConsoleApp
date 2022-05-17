@@ -1,2 +1,2 @@
-﻿Pierre   1234   1241355   1246126178   135317   
-Matheus Henrique Amancio   123.321.314-99   (11)92234-4112   matheusamancio4@gmail.com   mora na zona   
+﻿Nome    CPF/CNPJ   Data de Nascimento   Telefone   Email   Endereco
+ 
