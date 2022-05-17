@@ -2,11 +2,20 @@
 {
     public class Gaveteiro : Movel
     {
-        int gavetas;
+        private int gavetas;
 
         public void calcularPreco()
         {
             
+        }
+        ///////////////////////////////////////////////////////
+        public void setGavetas(int gavetas)
+        {
+            this.gavetas = gavetas;
+        }
+        public int getGavetas()
+        {
+            return (gavetas);
         }
     }
 }
