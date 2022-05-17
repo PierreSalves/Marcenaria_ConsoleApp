@@ -21,7 +21,7 @@
         {
             this.altura = altura;
         }
-        public string getAltura()
+        public float getAltura()
         {
             return (altura);
         }
@@ -30,7 +30,7 @@
         {
             this.largura = largura;
         }
-        public string getLargura()
+        public float getLargura()
         {
             return (largura);
         }
@@ -39,7 +39,7 @@
         {
             this.profundidade = profundidade;
         }
-        public DateTime getProfundidade()
+        public float getProfundidade()
         {
             return (profundidade);
         }
@@ -48,18 +48,9 @@
         {
             this.peso = peso;
         }
-        public string getTelefone()
+        public float getPeso()
         {
-            return (telefone);
-        }
-        ///////////////////////////////////////////////////////
-        public void setEmail(string email)
-        {
-            this.email = email;
-        }
-        public string getEmail()
-        {
-            return (email);
+            return (peso);
         }
         ///////////////////////////////////////////////////////
         public void setCor(string cor)
