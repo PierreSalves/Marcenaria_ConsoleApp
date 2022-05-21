@@ -2,73 +2,31 @@
 {
     public class Movel
     {
-        protected float altura;
-        protected float largura;
-        protected float profundidade;
-        protected float peso;
-        protected string cor;
-        protected string material;
-        protected float preco;
-
-
-         
-        public void calcularPreco()
+        public float altura;
+        public float largura;
+        public float profundidade;
+        public float peso { get; private set; }
+        public string cor;
+        public string material;
+        public float preco { get;protected set; }
+        public string descricao { get; protected set; }
+        public void calculaPeso()
         {
-        
-        }
-        ///////////////////////////////////////////////////////
-        public void setAltura(float altura)
-        {
-            this.altura = altura;
-        }
-        public float getAltura()
-        {
-            return (altura);
-        }
-        ///////////////////////////////////////////////////////
-        public void setLargura(float largura)
-        {
-            this.largura = largura;
-        }
-        public float getLargura()
-        {
-            return (largura);
-        }
-        ///////////////////////////////////////////////////////
-        public void setProfundidade(float profundidade)
-        {
-            this.profundidade = profundidade;
-        }
-        public float getProfundidade()
-        {
-            return (profundidade);
-        }
-        ///////////////////////////////////////////////////////
-        public void setPeso(float peso)
-        {
-            this.peso = peso;
-        }
-        public float getPeso()
-        {
-            return (peso);
-        }
-        ///////////////////////////////////////////////////////
-        public void setCor(string cor)
-        {
-            this.cor = cor;
-        }
-        public string getCor()
-        {
-            return (cor);
-        }
-        ///////////////////////////////////////////////////////
-        public void setMaterial(string material)
-        {
-            this.material = material;
-        }
-        public string getMaterial()
-        {
-            return (material);
+            switch (material)
+            {
+                case "Madeira Macica":  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
+                    peso = (float)(((altura * largura * profundidade)/1000000)* 13.9); //resultado kg
+                    break;
+                case "MDF":  //altura * largura * profundidade em cm 
+                    peso = (float)(((altura * largura * profundidade)/1000000)* 9.3); //resultado kg
+                    break;
+                case "Conpensado":  //altura * largura * profundidade em cm 
+                    peso = (float)(((altura * largura * profundidade)/1000000)* 8.3); //resultado kg
+                    break;
+                default:  //se o material informado nao for valido o material do movel sera MDF
+                    peso = (float)(((altura * largura * profundidade)/1000000)* 8.3); //resultado kg
+                    break;
+            }
         }
     }
 }
