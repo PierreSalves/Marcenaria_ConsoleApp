@@ -1,4 +1,6 @@
-﻿namespace MarcenariaMarcelus
+﻿using System;
+
+namespace MarcenariaMarcelus
 {
     public class Movel
     {
@@ -27,6 +29,10 @@
                     peso = (float)(((altura * largura * profundidade)/1000000)* 8.3); //resultado kg
                     break;
             }
+        }
+        public void calcularPreco()
+        {
+           
         }
     }
 }

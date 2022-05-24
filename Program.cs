@@ -54,7 +54,6 @@ namespace MarcenariaMarcelus
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine("---------------------------------------------------------------------------------");
-                informacaoPedido();
             }
             if (menu == 2)
             {
@@ -134,6 +133,7 @@ namespace MarcenariaMarcelus
                     pedido.movel.material = Console.ReadLine();
                     Console.Write("-------------- Informe a cor da bancada(SemCor,Marrom,Bege,Preto,Branco) : ");
                     pedido.movel.cor = Console.ReadLine();
+                    pedido.movel.calculaPeso();
                     break;
                 case "Gaveteiro" :
                     Console.Write("-------------- Informe a quantidade de gavetas do gaveteiro : ");
@@ -168,7 +168,7 @@ namespace MarcenariaMarcelus
                     pedido.movel.profundidade = Convert.ToInt32(Console.ReadLine());
                     Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
                     pedido.movel.material = Console.ReadLine();
-                    Console.Write("-------------- Informe a cor da bancada(SemCor,Marrom,Bege,Preto,Branco) : ");
+                    Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
                     pedido.movel.cor = Console.ReadLine();
                     pedido.movel.calculaPeso();
                     break;
@@ -183,11 +183,28 @@ namespace MarcenariaMarcelus
             pedido.tipo_frete = Console.ReadLine();
             pedido.calcularPrazoFabricacao();
             pedido.calcularValorFrete();
-        }
-
-        private static void informacaoPedido()
-        {
+            pedido.calcularValorTotal();
             
+            Console.WriteLine("Cliente : " + pedido.cliente.nome);
+            Console.WriteLine("Data :" + pedido.data_pedido);
+            Console.WriteLine("Tipo de Movel : " + pedido.movel.descricao);
+            Console.WriteLine("Altura : " + pedido.movel.altura + "cm");
+            Console.WriteLine("Largura : " + pedido.movel.largura + "cm");
+            Console.WriteLine("Profundidade : " + pedido.movel.profundidade + "cm");
+            Console.WriteLine("Material : " + pedido.movel.material);
+            Console.WriteLine("Cor : " + pedido.movel.cor);
+            Console.WriteLine("Peso : " + pedido.movel.peso + "kg");
+            Console.WriteLine("Prazo de Fabricacao : " + pedido.prazo_fabricacao);
+            Console.WriteLine("Tipo de Frete : " + pedido.tipo_frete);
+            Console.WriteLine("Dia da entrega : " + pedido.data_entrega);
+            Console.WriteLine("Valor do Frete : R$" + pedido.valor_frete);
+            Console.WriteLine("Preco do Movel : R$" + pedido.movel.preco);
+            Console.WriteLine("Valor total : R$" + pedido.valor);
+            
+            
+            
+            
+            /*Console.WriteLine(pedido.mostrarFatura());*/
         }
     }
 }
