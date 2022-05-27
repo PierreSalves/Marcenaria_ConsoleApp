@@ -10,7 +10,8 @@
             this.portas = portas;
             descricao = "Armario";
         }
-        public void calcularPreco()  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
+        
+        public override void calcularPreco()  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
         {
             switch (material)
             {

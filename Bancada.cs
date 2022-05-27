@@ -4,14 +4,16 @@
     {
         public int portas { get; }
         public int gavetas { get; }
+        public string posicaoGavetas { get; }
         
-        public Bancada(int _portas,int _gavetas)
+        public Bancada(int portas,int gavetas,string posicaoGavetas)
         {
-            portas = _portas;
-            gavetas = _gavetas;
+            this.portas = portas;
+            this.gavetas = gavetas;
+            this.posicaoGavetas = posicaoGavetas;
             descricao = "Bancada";
         }
-        public void calcularPreco()  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
+        public override void calcularPreco()  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
         {
             switch (material)
             {
