@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using ExcelDataReader;
 
 namespace MarcenariaMarcelus
@@ -112,9 +111,6 @@ namespace MarcenariaMarcelus
                             }
                             documentosAntigos.Close();
                         }
-                        Console.WriteLine("---------------------------------------------------------------------------------");
-                        Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");
-                        menu = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("");
                         Console.WriteLine("");
                         break;
@@ -243,8 +239,6 @@ namespace MarcenariaMarcelus
             Console.WriteLine("Preco do Movel : R$" + pedido.movel.preco);
             Console.WriteLine("Valor total : R$" + pedido.valor);
             Console.WriteLine("---------------------------------------------------------------------------------");
-            
-            /*Console.WriteLine(pedido.mostrarFatura());*/
         }
     }
 }
