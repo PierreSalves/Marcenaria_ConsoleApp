@@ -44,7 +44,7 @@ namespace MarcenariaMarcelus
         {
             switch (tipo_frete)
             {
-                case "Retirar no local":
+                case "A retirar":
                     valor_frete = 0;
                     data_entrega = prazo_fabricacao;
                     break;

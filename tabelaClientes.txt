@@ -1,2 +1,0 @@
-﻿Nome-------------------Documento--------Data de Nascimento----Telefone---------email--------------------Endereco
-Pierre Sanches Alves---xxx.xxx.xxx-xx---04/07/1997 00:00:00---(18)xxxxx-5022---040797pierre@gmail.com---Sitio Sao Miguel

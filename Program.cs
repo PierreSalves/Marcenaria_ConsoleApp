@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using ExcelDataReader;
 
 namespace MarcenariaMarcelus
 {
@@ -33,68 +36,93 @@ namespace MarcenariaMarcelus
             clientes[2].email = "matheusamancio@gmail.com";
             clientes[2].endereco = "Bastos";
             /////////////////////////////////////////////////////////////
-            
             int menu;
-            Console.WriteLine("-------------------------------MARCENARIA MARCELUS-------------------------------");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("---------------------------------------Menu--------------------------------------");
-            Console.WriteLine("");
-            Console.WriteLine("---------------------------- 1 Fazer pedido--------------------------------------");
-            Console.WriteLine("---------------------------- 2 Cadastrar Cliente---------------------------------");
-            Console.WriteLine("");
+            do
+            {
+                Console.WriteLine("-------------------------------MARCENARIA MARCELUS-------------------------------");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("---------------------------------------Menu--------------------------------------");
+                Console.WriteLine("");
+                Console.WriteLine("---------------------------- 1 Fazer pedido--------------------------------------");
+                Console.WriteLine("---------------------------- 2 Cadastrar Cliente---------------------------------");
+                Console.WriteLine("-----------------------------3 Tabela de Clientes--------------------------------");
+                
+                Console.WriteLine("-----------------------------0 Sair----------------------------------------------");
+                Console.WriteLine("");
                 Console.Write("---------------------------- : ");
-            menu = Convert.ToInt32(Console.ReadLine());
-            if (menu == 1)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("---------------------------------------------------------------------------------");
-                realizaPedido();
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("---------------------------------------------------------------------------------");
-            }
-            if (menu == 2)
-            {
-                /*try
+                menu = Convert.ToInt32(Console.ReadLine());
+                switch (menu)
                 {
-                    Cliente cliente = new Cliente();
-                    StreamWriter tblCliente = new StreamWriter(
-                        "C:/Users/pierr/Documents/Faculdade/V Semestre/C# - Fernando/MarcenariaMarcelus/Marcenaria_ConsoleApp/tabelaClientes.txt",
-                        true, Encoding.UTF8);
-                    
-                    Console.Write("---Nome completo : ");
-                    cliente.setNome(Console.In.ReadLine());
-                    tblCliente.Write(cliente.getNome() + "---");
-
-                    Console.Write("---CPF / CNPJ : ");
-                    cliente.setCPF_CNPJ(Console.In.ReadLine());
-                    tblCliente.Write(cliente.getCPF_CNPJ() + "---");
-
-                    Console.Write("---Data de nascimento(yyyy-mm-dd) : ");
-                    cliente.setDataNascimento(Convert.ToDateTime(Console.In.ReadLine()));
-                    tblCliente.Write(cliente.getDataNascimento() + "---");
-
-                    Console.Write("---Telefone : ");
-                    cliente.setTelefone(Console.In.ReadLine());
-                    tblCliente.Write(cliente.getTelefone() + "---");
-
-                    Console.Write("---Email : ");
-                    cliente.setEmail(Console.In.ReadLine());
-                    tblCliente.Write(cliente.getEmail() + "---");
-
-                    Console.Write("---Endereco : ");
-                    cliente.setEndereco(Console.In.ReadLine());
-                    tblCliente.WriteLine(cliente.getEndereco());
-                    tblCliente.Close();
+                    case 1:
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("---------------------------------------------------------------------------------");
+                        realizaPedido();
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("---------------------------------------------------------------------------------");
+                        Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");
+                        menu = Convert.ToInt32(Console.ReadLine());
+                        break;
+                    case 2:
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("---------------------------------------------------------------------------------");
+                        Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");
+                        menu = Convert.ToInt32(Console.ReadLine());
+                        break;
+                    case 3:
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("---------------------------------------------------------------------------------");
+                        using (var documentosAntigos = File.Open("DataBase.xlsx", FileMode.Open, FileAccess.Read))
+                        {
+                            using (var planilha = ExcelReaderFactory.CreateReader(documentosAntigos))
+                            {
+                                try
+                                {
+                                    do
+                                    {
+                                        Console.WriteLine(planilha.Name);
+                                        Console.WriteLine("---------------------------------------------------------------------------------");
+                                        Console.WriteLine("Nome   |   Documento     |   Data de Nascimento   |" +
+                                                          "      Telefone     |           Email          |    Cidade");
+                                        while (planilha.Read())
+                                        {
+                                            Console.WriteLine(planilha.GetString(0) + "  |  " + planilha.GetString(1) +
+                                                              "  |  "
+                                                              + planilha.GetDateTime(2) + "  |  " +
+                                                              planilha.GetString(3) + "  |  "
+                                                              + planilha.GetString(4) + "  |  " +
+                                                              planilha.GetString(5));
+                                        }
+                                    } while (planilha.NextResult()); //Avança para a proxima tabela dentro do documento
+                                }                                    //Funciona até acabar as linhas da ultima tabela
+                                catch (System.NullReferenceException)
+                                {
+                                    Console.WriteLine("---------------------------------------------------------------------------------");
+                                    Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");
+                                    menu = Convert.ToInt32(Console.ReadLine());
+                                    documentosAntigos.Close();
+                                    planilha.Close();
+                                }
+                                planilha.Close();
+                            }
+                            documentosAntigos.Close();
+                        }
+                        Console.WriteLine("---------------------------------------------------------------------------------");
+                        Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");
+                        menu = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        break;
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Erro: " + e.Message);
-                }*/
-            }
+            } while (menu != 0);
         }
+        
         private static void realizaPedido()
         {
             Pedido pedido = new Pedido();
@@ -117,11 +145,14 @@ namespace MarcenariaMarcelus
             }
             Console.Write("-------------- O tipo do movel desejado(Armario, Gaveteiro, Bancada) : ");
             string tipoMovel = Console.ReadLine();
+            int portas = 0, gavetas = 0;
+            string posicaoGavetas = "";
             switch (tipoMovel)
             {
                 case "Armario" :
                     Console.Write("-------------- Informe a quantidade de portas do armario : ");
-                    moveis[0] = new Armario(Convert.ToInt32(Console.ReadLine()));
+                    portas = Convert.ToInt32(Console.ReadLine());
+                    moveis[0] = new Armario(portas);
                     pedido.movel = moveis[0];
                     Console.Write("-------------- Informe a altura desejada (cm): ");
                     pedido.movel.altura = Convert.ToInt32(Console.ReadLine());
@@ -131,13 +162,17 @@ namespace MarcenariaMarcelus
                     pedido.movel.profundidade = Convert.ToInt32(Console.ReadLine());
                     Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
                     pedido.movel.material = Console.ReadLine();
-                    Console.Write("-------------- Informe a cor da bancada(SemCor,Marrom,Bege,Preto,Branco) : ");
+                    Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
                     pedido.movel.cor = Console.ReadLine();
                     pedido.movel.calculaPeso();
+                    pedido.movel.calcularPreco();
                     break;
                 case "Gaveteiro" :
                     Console.Write("-------------- Informe a quantidade de gavetas do gaveteiro : ");
-                    moveis[1] = new Gaveteiro(Convert.ToInt32(Console.ReadLine()));
+                    gavetas = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("-------------- Informe a posicao das gavetas(vertical,horizontal): ");
+                    posicaoGavetas = Console.ReadLine();
+                    moveis[1] = new Gaveteiro(gavetas,posicaoGavetas);
                     pedido.movel = moveis[1];
                     Console.Write("-------------- Informe a altura desejada (cm): ");
                     pedido.movel.altura = Convert.ToInt32(Console.ReadLine());
@@ -147,18 +182,20 @@ namespace MarcenariaMarcelus
                     pedido.movel.profundidade = Convert.ToInt32(Console.ReadLine());
                     Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
                     pedido.movel.material = Console.ReadLine();
-                    Console.Write("-------------- Informe a cor da bancada(SemCor,Marrom,Bege,Preto,Branco) : ");
+                    Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
                     pedido.movel.cor = Console.ReadLine();
                     pedido.movel.calculaPeso();
-                    
+                    pedido.movel.calcularPreco();
                     break;
                 case "Bancada" :
-                    Console.WriteLine("-------------- Informe a quantidade de portas e gavetas da bancada---");
+                    Console.WriteLine("-------------- Informe a quantidade de portas e gavetas e a posicao das gavetas na bancada---");
                     Console.Write("-------------- Quantidade de portas: ");
-                    int portas = Convert.ToInt32(Console.ReadLine()); 
+                    portas = Convert.ToInt32(Console.ReadLine()); 
                     Console.Write("-------------- Quantidade de gavetas: ");
-                    int gavetas = Convert.ToInt32(Console.ReadLine());
-                    moveis[2] = new Bancada(portas,gavetas);
+                    gavetas = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("-------------- Posicao das gavetas(vertical,horizontal): ");
+                    posicaoGavetas = Console.ReadLine();
+                    moveis[2] = new Bancada(portas,gavetas,posicaoGavetas);
                     pedido.movel = moveis[2];
                     Console.Write("-------------- Informe a altura desejada (cm): ");
                     pedido.movel.altura = Convert.ToInt32(Console.ReadLine());
@@ -171,6 +208,7 @@ namespace MarcenariaMarcelus
                     Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
                     pedido.movel.cor = Console.ReadLine();
                     pedido.movel.calculaPeso();
+                    pedido.movel.calcularPreco();
                     break;
                 default: 
                     Console.WriteLine("Informe um do tipo valido para movel");
@@ -178,16 +216,20 @@ namespace MarcenariaMarcelus
             }
             Console.Write("-------------- O local(cidade) de entrega(Aracatuba,Bastos,Tupa) : ");
             pedido.endereco_entrega = Console.ReadLine();
-            
-            Console.Write("-------------- O tipo de frete desejado(Retirar no Local,Transportadora) : ");
+            Console.Write("-------------- O tipo de frete desejado(A retirar,Transportadora) : ");
             pedido.tipo_frete = Console.ReadLine();
             pedido.calcularPrazoFabricacao();
             pedido.calcularValorFrete();
             pedido.calcularValorTotal();
-            
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine("Cliente : " + pedido.cliente.nome);
             Console.WriteLine("Data :" + pedido.data_pedido);
             Console.WriteLine("Tipo de Movel : " + pedido.movel.descricao);
+            Console.WriteLine("Quantidade de Portas : " + portas);
+            Console.WriteLine("Quantidade de Gavetas : " + gavetas);
+            Console.WriteLine("Posicao das Gavetas : " + posicaoGavetas);
             Console.WriteLine("Altura : " + pedido.movel.altura + "cm");
             Console.WriteLine("Largura : " + pedido.movel.largura + "cm");
             Console.WriteLine("Profundidade : " + pedido.movel.profundidade + "cm");
@@ -200,9 +242,7 @@ namespace MarcenariaMarcelus
             Console.WriteLine("Valor do Frete : R$" + pedido.valor_frete);
             Console.WriteLine("Preco do Movel : R$" + pedido.movel.preco);
             Console.WriteLine("Valor total : R$" + pedido.valor);
-            
-            
-            
+            Console.WriteLine("---------------------------------------------------------------------------------");
             
             /*Console.WriteLine(pedido.mostrarFatura());*/
         }

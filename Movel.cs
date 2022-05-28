@@ -30,9 +30,8 @@ namespace MarcenariaMarcelus
                     break;
             }
         }
-        public void calcularPreco()
+        public virtual void calcularPreco()
         {
-           
         }
     }
 }

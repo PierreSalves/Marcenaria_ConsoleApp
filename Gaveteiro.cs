@@ -3,12 +3,14 @@
     public class Gaveteiro : Movel
     {
         public int gavetas { get; }
-        public Gaveteiro(int _gavetas)
+        public string posicaoGavetas { get; }
+        public Gaveteiro(int gavetas,string posicaoGavetas)
         {
-            gavetas = _gavetas;
+            this.gavetas = gavetas;
+            this.posicaoGavetas = posicaoGavetas;
             descricao = "Gaveteiro";
         }
-        public void calcularPreco()  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
+        public override void calcularPreco()  //medidas chegam em cm entao foi convertido em m³ (altura*largura*profundidade)/ 1.000.000)
         {
             switch (material)
             {
