@@ -109,10 +109,13 @@ namespace MarcenariaMarcelus
                 }
             } while (menu != 0);
         }
-        
         private static void realizaPedido()
         {
             Pedido pedido = new Pedido();
+            bool continuarComprando = true;
+            int portas, gavetas;
+            string posicaoGavetas;
+            
             Console.Write("-------------- Nome do Cliente : ");
             string nome = Console.ReadLine();
             switch (nome)
@@ -130,77 +133,80 @@ namespace MarcenariaMarcelus
                     Console.WriteLine("-------------- Informe um nome cadastrado");
                     break;
             }
-            Console.Write("-------------- O tipo do movel desejado(Armario, Gaveteiro, Bancada) : ");
-            string tipoMovel = Console.ReadLine();
-            int portas = 0, gavetas = 0;
-            string posicaoGavetas = "";
-            switch (tipoMovel)
+            do
             {
-                case "Armario" :
-                    Console.Write("-------------- Informe a quantidade de portas do armario : ");
-                    portas = Convert.ToInt32(Console.ReadLine());
-                    moveis[0] = new Armario(portas);
-                    pedido.movel = moveis[0];
-                    Console.Write("-------------- Informe a altura desejada (cm): ");
-                    pedido.movel.altura = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a largura desejada (cm): ");
-                    pedido.movel.largura = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a profundidade desejada (cm): ");
-                    pedido.movel.profundidade = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
-                    pedido.movel.material = Console.ReadLine();
-                    Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
-                    pedido.movel.cor = Console.ReadLine();
-                    pedido.movel.calculaPeso();
-                    pedido.movel.calcularPreco();
-                    break;
-                case "Gaveteiro" :
-                    Console.Write("-------------- Informe a quantidade de gavetas do gaveteiro : ");
-                    gavetas = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a posicao das gavetas(vertical,horizontal): ");
-                    posicaoGavetas = Console.ReadLine();
-                    moveis[1] = new Gaveteiro(gavetas,posicaoGavetas);
-                    pedido.movel = moveis[1];
-                    Console.Write("-------------- Informe a altura desejada (cm): ");
-                    pedido.movel.altura = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a largura desejada (cm): ");
-                    pedido.movel.largura = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a profundidade desejada (cm): ");
-                    pedido.movel.profundidade = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
-                    pedido.movel.material = Console.ReadLine();
-                    Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
-                    pedido.movel.cor = Console.ReadLine();
-                    pedido.movel.calculaPeso();
-                    pedido.movel.calcularPreco();
-                    break;
-                case "Bancada" :
-                    Console.WriteLine("-------------- Informe a quantidade de portas e gavetas e a posicao das gavetas na bancada---");
-                    Console.Write("-------------- Quantidade de portas: ");
-                    portas = Convert.ToInt32(Console.ReadLine()); 
-                    Console.Write("-------------- Quantidade de gavetas: ");
-                    gavetas = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Posicao das gavetas(vertical,horizontal): ");
-                    posicaoGavetas = Console.ReadLine();
-                    moveis[2] = new Bancada(portas,gavetas,posicaoGavetas);
-                    pedido.movel = moveis[2];
-                    Console.Write("-------------- Informe a altura desejada (cm): ");
-                    pedido.movel.altura = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a largura desejada (cm): ");
-                    pedido.movel.largura = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe a profundidade desejada (cm): ");
-                    pedido.movel.profundidade = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
-                    pedido.movel.material = Console.ReadLine();
-                    Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
-                    pedido.movel.cor = Console.ReadLine();
-                    pedido.movel.calculaPeso();
-                    pedido.movel.calcularPreco();
-                    break;
-                default: 
-                    Console.WriteLine("Informe um do tipo valido para movel");
-                    break;
-            }
+                Console.Write("-------------- O tipo do movel desejado(Armario, Gaveteiro, Bancada) : ");
+                string tipoMovel = Console.ReadLine();
+                portas = 0; gavetas = 0;
+                float altura = 0, largura = 0, profundidade = 0;
+                string material = "", cor = ""; posicaoGavetas = "";
+                switch (tipoMovel)
+                {
+                    case "Armario":
+                        Console.Write("-------------- Informe a altura desejada (cm): ");
+                        altura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a largura desejada (cm): ");
+                        largura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a profundidade desejada (cm): ");
+                        profundidade = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a quantidade de portas do armario : ");
+                        portas = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe o material do armario(Madeira Macica,MDF,Compensado) : ");
+                        material = Console.ReadLine();
+                        Console.Write("-------------- Informe a cor do armario(Verniz,Marrom,Bege,Preto,Branco) : ");
+                        cor = Console.ReadLine();
+                        pedido.moveis.Add(new Armario(altura,largura,profundidade,material,cor,portas));
+                        break;
+                    case "Gaveteiro" :
+                        Console.Write("-------------- Informe a altura desejada (cm): ");
+                        altura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a largura desejada (cm): ");
+                        largura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a profundidade desejada (cm): ");
+                        profundidade = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a quantidade de gavetas do gaveteiro : ");
+                        gavetas = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a posicao das gavetas(vertical,horizontal): ");
+                        posicaoGavetas = Console.ReadLine();
+                        Console.Write("-------------- Informe o material do gaveteiro(Madeira Macica,MDF,Compensado) : ");
+                        material = Console.ReadLine();
+                        Console.Write("-------------- Informe a cor do gaveteiro(Verniz,Marrom,Bege,Preto,Branco) : ");
+                        cor = Console.ReadLine();
+                        pedido.moveis.Add(new Gaveteiro(altura,largura,profundidade,material,cor,gavetas,posicaoGavetas));
+                        break;
+                    case "Bancada" :
+                        Console.Write("-------------- Informe a altura desejada (cm): ");
+                        altura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a largura desejada (cm): ");
+                        largura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a profundidade desejada (cm): ");
+                        profundidade = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("-------------- Informe a quantidade de portas e gavetas e a posicao das gavetas na bancada---");
+                        Console.Write("-------------- Quantidade de portas: ");
+                        portas = Convert.ToInt32(Console.ReadLine()); 
+                        Console.Write("-------------- Quantidade de gavetas: ");
+                        gavetas = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Posicao das gavetas(vertical,horizontal): ");
+                        posicaoGavetas = Console.ReadLine();
+                        Console.Write("-------------- Informe o material da bancada(Madeira Macica,MDF,Compensado) : ");
+                        material = Console.ReadLine();
+                        Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
+                        cor = Console.ReadLine();
+                        pedido.moveis.Add(new Bancada(altura,largura,profundidade,material,cor,portas,gavetas,posicaoGavetas));
+                        break;
+                    default:
+                        Console.WriteLine("Informe um do tipo valido para movel");
+                        break;
+                }
+                Console.WriteLine("---------------------------------------------------------------------------------");
+                Console.Write("Deseja incluir outro movel?(S / N) : ");
+                char confirma = Convert.ToChar(Console.ReadLine());
+                if (confirma == 'N' || confirma == 'n')
+                {
+                    continuarComprando = false;
+                }
+                Console.WriteLine("---------------------------------------------------------------------------------");
+            } while (continuarComprando);
             Console.Write("-------------- O local(cidade) de entrega(Aracatuba,Bastos,Tupa) : ");
             pedido.endereco_entrega = Console.ReadLine();
             Console.Write("-------------- O tipo de frete desejado(A retirar,Transportadora) : ");
@@ -208,28 +214,33 @@ namespace MarcenariaMarcelus
             pedido.calcularPrazoFabricacao();
             pedido.calcularValorFrete();
             pedido.calcularValorTotal();
+            
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Cliente : " + pedido.cliente.nome);
             Console.WriteLine("Data :" + pedido.data_pedido);
-            Console.WriteLine("Tipo de Movel : " + pedido.movel.descricao);
-            Console.WriteLine("Quantidade de Portas : " + portas);
-            Console.WriteLine("Quantidade de Gavetas : " + gavetas);
-            Console.WriteLine("Posicao das Gavetas : " + posicaoGavetas);
-            Console.WriteLine("Altura : " + pedido.movel.altura + "cm");
-            Console.WriteLine("Largura : " + pedido.movel.largura + "cm");
-            Console.WriteLine("Profundidade : " + pedido.movel.profundidade + "cm");
-            Console.WriteLine("Material : " + pedido.movel.material);
-            Console.WriteLine("Cor : " + pedido.movel.cor);
-            Console.WriteLine("Peso : " + pedido.movel.peso + "kg");
+            Console.WriteLine("Itens ---------------");
+            foreach (var movel in pedido.moveis)
+            {
+                Console.WriteLine("---Tipo de movel: {0}",movel.descricao);
+                Console.WriteLine("---Altura: {0}cm",movel.altura);
+                Console.WriteLine("---Largura: {0}cm",movel.largura);
+                Console.WriteLine("---Profundidade: {0}cm",movel.profundidade);
+                Console.WriteLine("---Quantidade de Portas : {0}",portas);
+                Console.WriteLine("---Quantidade de Gavetas : {0}",gavetas);
+                Console.WriteLine("---Posicao das Gavetas : {0}",posicaoGavetas);
+                Console.WriteLine("Material :{0}",movel.material);
+                Console.WriteLine("Cor : {0}",movel.cor);
+                Console.WriteLine("Peso : {0}kg",movel.peso);
+            }
             Console.WriteLine("Prazo de Fabricacao : " + pedido.prazo_fabricacao);
             Console.WriteLine("Tipo de Frete : " + pedido.tipo_frete);
             Console.WriteLine("Dia da entrega : " + pedido.data_entrega);
             Console.WriteLine("Valor do Frete : R$" + pedido.valor_frete);
-            Console.WriteLine("Preco do Movel : R$" + pedido.movel.preco);
             Console.WriteLine("Valor total : R$" + pedido.valor);
             Console.WriteLine("---------------------------------------------------------------------------------");
+            
         }
     }
 }
