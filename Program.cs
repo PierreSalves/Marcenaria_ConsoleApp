@@ -7,7 +7,6 @@ namespace MarcenariaMarcelus
     internal static class Program
     {
         private static Cliente[] clientes = new Cliente[3];
-        private static Movel[] moveis = new Movel[3];
 
         public static void Main(string[] args)
         {
@@ -240,7 +239,6 @@ namespace MarcenariaMarcelus
             Console.WriteLine("Valor do Frete : R$" + pedido.valor_frete);
             Console.WriteLine("Valor total : R$" + pedido.valor);
             Console.WriteLine("---------------------------------------------------------------------------------");
-            
         }
     }
 }
