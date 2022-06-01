@@ -44,8 +44,7 @@ namespace MarcenariaMarcelus
                 Console.WriteLine("---------------------------------------Menu--------------------------------------");
                 Console.WriteLine("");
                 Console.WriteLine("---------------------------- 1 Fazer pedido--------------------------------------");
-                Console.WriteLine("---------------------------- 2 Cadastrar Cliente---------------------------------");
-                Console.WriteLine("-----------------------------3 Tabela de Clientes--------------------------------");
+                Console.WriteLine("-----------------------------2 Tabela de Clientes--------------------------------");
                 
                 Console.WriteLine("-----------------------------0 Sair----------------------------------------------");
                 Console.WriteLine("");
@@ -65,13 +64,6 @@ namespace MarcenariaMarcelus
                         menu = Convert.ToInt32(Console.ReadLine());
                         break;
                     case 2:
-                        Console.WriteLine("");
-                        Console.WriteLine("");
-                        Console.WriteLine("---------------------------------------------------------------------------------");
-                        Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");
-                        menu = Convert.ToInt32(Console.ReadLine());
-                        break;
-                    case 3:
                     {
                         Console.WriteLine("");
                         Console.WriteLine("");
@@ -90,16 +82,15 @@ namespace MarcenariaMarcelus
                                                           "      Telefone     |           Email          |    Cidade");
                                         while (planilha.Read())
                                         {
-                                            Console.WriteLine(planilha.GetString(0) + "  |  " + planilha.GetString(1) +
-                                                              "  |  "
+                                            Console.WriteLine(planilha.GetString(0) + "  |  " + planilha.GetString(1) + "  |  "
                                                               + planilha.GetDateTime(2) + "  |  " +
                                                               planilha.GetString(3) + "  |  "
                                                               + planilha.GetString(4) + "  |  " +
                                                               planilha.GetString(5));
                                         }
-                                    } while (planilha.NextResult()); //Avança para a proxima tabela dentro do documento
-                                }                                    //Funciona até acabar as linhas da ultima tabela
-                                catch (System.NullReferenceException)
+                                    } while (planilha.NextResult()); //Avança para a proxima linha da tabela
+                                }                                    
+                                catch (NullReferenceException)
                                 {
                                     Console.WriteLine("---------------------------------------------------------------------------------");
                                     Console.Write("Para sair digite 0 / Para voltar ao menu digite qualquer numero diferente de 0 : ");

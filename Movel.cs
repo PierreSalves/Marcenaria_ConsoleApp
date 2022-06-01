@@ -26,6 +26,7 @@ namespace MarcenariaMarcelus
                     peso = (float)(((altura * largura * profundidade)/1000000)* 8.3); //resultado kg
                     break;
                 default:  //se o material informado nao for valido o material do movel sera MDF
+                    material = "MDF";
                     peso = (float)(((altura * largura * profundidade)/1000000)* 8.3); //resultado kg
                     break;
             }
