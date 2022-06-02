@@ -129,7 +129,8 @@ namespace MarcenariaMarcelus
                     pedido.cliente = clientes[2];
                     break;
                 default: 
-                    Console.WriteLine("-------------- Informe um nome cadastrado");
+                    Console.WriteLine("-------------- Informe um nome cadastrado(Pierre,Ana,Matheus) : O nome inserido foi Pierre ");
+                    pedido.cliente = clientes[0];
                     break;
             }
             do
@@ -194,7 +195,20 @@ namespace MarcenariaMarcelus
                         pedido.moveis.Add(new Bancada(altura,largura,profundidade,material,cor,portas,gavetas,posicaoGavetas));
                         break;
                     default:
-                        Console.WriteLine("Informe um do tipo valido para movel");
+                        Console.WriteLine("Movel invalido, proseguindo com armario");
+                        Console.Write("-------------- Informe a altura desejada (cm): ");
+                        altura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a largura desejada (cm): ");
+                        largura = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a profundidade desejada (cm): ");
+                        profundidade = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe a quantidade de portas do armario : ");
+                        portas = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("-------------- Informe o material do armario(Madeira Macica,MDF,Compensado) : ");
+                        material = Console.ReadLine();
+                        Console.Write("-------------- Informe a cor do armario(Verniz,Marrom,Bege,Preto,Branco) : ");
+                        cor = Console.ReadLine();
+                        pedido.moveis.Add(new Armario(altura,largura,profundidade,material,cor,portas));
                         break;
                 }
                 Console.WriteLine("---------------------------------------------------------------------------------");
