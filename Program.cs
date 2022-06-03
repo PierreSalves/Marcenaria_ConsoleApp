@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using ExcelDataReader;
 
@@ -114,7 +116,9 @@ namespace MarcenariaMarcelus
             bool continuarComprando = true;
             int portas, gavetas;
             string posicaoGavetas;
-            
+            var erroHerancaPortas = new List<object>();
+            var erroHerancaGavetas = new List<object>();
+            var erroHerancaPosicaoGavetas = new List<object>();
             Console.Write("-------------- Nome do Cliente : ");
             string nome = Console.ReadLine();
             switch (nome)
@@ -156,6 +160,9 @@ namespace MarcenariaMarcelus
                         Console.Write("-------------- Informe a cor do armario(Verniz,Marrom,Bege,Preto,Branco) : ");
                         cor = Console.ReadLine();
                         pedido.moveis.Add(new Armario(altura,largura,profundidade,material,cor,portas));
+                        erroHerancaPortas.Add(portas);
+                        erroHerancaGavetas.Add("nao possui");
+                        erroHerancaPosicaoGavetas.Add("nao possui");
                         break;
                     case "Gaveteiro" :
                         Console.Write("-------------- Informe a altura desejada (cm): ");
@@ -173,6 +180,9 @@ namespace MarcenariaMarcelus
                         Console.Write("-------------- Informe a cor do gaveteiro(Verniz,Marrom,Bege,Preto,Branco) : ");
                         cor = Console.ReadLine();
                         pedido.moveis.Add(new Gaveteiro(altura,largura,profundidade,material,cor,gavetas,posicaoGavetas));
+                        erroHerancaPortas.Add("nao possui");
+                        erroHerancaGavetas.Add(gavetas);
+                        erroHerancaPosicaoGavetas.Add(posicaoGavetas);
                         break;
                     case "Bancada" :
                         Console.Write("-------------- Informe a altura desejada (cm): ");
@@ -193,9 +203,12 @@ namespace MarcenariaMarcelus
                         Console.Write("-------------- Informe a cor da bancada(Verniz,Marrom,Bege,Preto,Branco) : ");
                         cor = Console.ReadLine();
                         pedido.moveis.Add(new Bancada(altura,largura,profundidade,material,cor,portas,gavetas,posicaoGavetas));
+                        erroHerancaPortas.Add(portas);
+                        erroHerancaGavetas.Add(gavetas);
+                        erroHerancaPosicaoGavetas.Add(posicaoGavetas);
                         break;
                     default:
-                        Console.WriteLine("Movel invalido, proseguindo com armario");
+                        Console.WriteLine("Movel invalido, proseguindo com Armario");
                         Console.Write("-------------- Informe a altura desejada (cm): ");
                         altura = Convert.ToInt32(Console.ReadLine());
                         Console.Write("-------------- Informe a largura desejada (cm): ");
@@ -209,6 +222,9 @@ namespace MarcenariaMarcelus
                         Console.Write("-------------- Informe a cor do armario(Verniz,Marrom,Bege,Preto,Branco) : ");
                         cor = Console.ReadLine();
                         pedido.moveis.Add(new Armario(altura,largura,profundidade,material,cor,portas));
+                        erroHerancaPortas.Add(portas);
+                        erroHerancaGavetas.Add("nao possui");
+                        erroHerancaPosicaoGavetas.Add("nao possui");
                         break;
                 }
                 Console.WriteLine("---------------------------------------------------------------------------------");
@@ -234,18 +250,21 @@ namespace MarcenariaMarcelus
             Console.WriteLine("Cliente : " + pedido.cliente.nome);
             Console.WriteLine("Data :" + pedido.data_pedido);
             Console.WriteLine("Itens ---------------");
+            int i = 0;
             foreach (var movel in pedido.moveis)
             {
                 Console.WriteLine("---Tipo de movel: {0}",movel.descricao);
                 Console.WriteLine("---Altura: {0}cm",movel.altura);
                 Console.WriteLine("---Largura: {0}cm",movel.largura);
                 Console.WriteLine("---Profundidade: {0}cm",movel.profundidade);
-                Console.WriteLine("---Quantidade de Portas : {0}",portas);
-                Console.WriteLine("---Quantidade de Gavetas : {0}",gavetas);
-                Console.WriteLine("---Posicao das Gavetas : {0}",posicaoGavetas);
-                Console.WriteLine("Material :{0}",movel.material);
-                Console.WriteLine("Cor : {0}",movel.cor);
-                Console.WriteLine("Peso : {0}kg",movel.peso);
+                Console.WriteLine("---Quantidade de Portas : {0}",erroHerancaPortas[i]);
+                Console.WriteLine("---Quantidade de Gavetas : {0}",erroHerancaGavetas[i]);
+                Console.WriteLine("---Posicao das Gavetas : {0}",erroHerancaPosicaoGavetas[i]);
+                Console.WriteLine("---Material :{0}",movel.material);
+                Console.WriteLine("---Cor : {0}",movel.cor);
+                Console.WriteLine("---Peso : {0}kg",movel.peso);
+                Console.WriteLine("---------------------------------------------------------------------------------");
+                i++;
             }
             Console.WriteLine("Prazo de Fabricacao : " + pedido.prazo_fabricacao);
             Console.WriteLine("Tipo de Frete : " + pedido.tipo_frete);
